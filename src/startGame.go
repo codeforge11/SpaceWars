@@ -47,6 +47,15 @@ func (g *Game) Update() error {
 		}
 	}
 
+	if ebiten.IsKeyPressed(ebiten.KeySpace) {
+		g.shoot()
+	}
+
+	//Moving bullets to top
+	for i := range g.Bullets {
+		g.Bullets[i].BulletY -= 5
+	}
+
 	return nil
 }
 
@@ -61,6 +70,10 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		screen.DrawImage(g.PlayerImg, op)
 	}
 
+	for i := range g.Bullets {
+		g.Bullets[i].Draw(screen, g.BulletImg)
+	}
+
 	//Debugger
 	if g.DebugMode {
 		g.DebugView(screen)
@@ -73,6 +86,8 @@ func StartGame() {
 		PlayerImg: PlayerCostume(),
 		PlayerX:   screenWidth / 2, // Start posizion
 		PlayerY:   screenHeight / 2,
+
+		BulletImg: BulletCostume(),
 	}
 
 	ebiten.SetWindowSize(screenWidth*2, screenHeight*2) // Set window size

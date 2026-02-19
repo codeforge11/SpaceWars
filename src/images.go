@@ -10,13 +10,22 @@ import (
 var (
 	defaultImagesSources = "./src/imgs/"
 
-	PlaneImage = "plane.png"
+	PlaneImage  = "plane.png"
+	BulletImage = "bullet.png"
 )
 
 func PlayerCostume() *ebiten.Image {
-	img, _, err := ebitenutil.NewImageFromFile(defaultImagesSources + PlaneImage)
+	playerImg, _, err := ebitenutil.NewImageFromFile(defaultImagesSources + PlaneImage)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return img
+	return playerImg
+}
+
+func BulletCostume() *ebiten.Image {
+	bulletImg, _, err := ebitenutil.NewImageFromFile(defaultImagesSources + BulletImage)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return bulletImg
 }
