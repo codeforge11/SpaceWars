@@ -1,11 +1,13 @@
 package src
 
 import (
+	"fmt"
 	"image/color"
 	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
+	"github.com/hajimehoshi/ebiten/v2/text/v2"
 )
 
 const (
@@ -13,8 +15,13 @@ const (
 	screenHeight = 300
 )
 
+var (
+	fontFace *text.GoTextFaceSource
+)
+
 func (g *Game) Update() error {
 	g.Count++
+	g.pointsNumber++
 
 	// Turn on/off debug mode
 	if ebiten.IsKeyPressed(ebiten.KeyControl) && inpututil.IsKeyJustPressed(ebiten.KeyF) {
@@ -42,7 +49,7 @@ func (g *Game) Update() error {
 		}
 	}
 	if ebiten.IsKeyPressed(ebiten.KeyS) || ebiten.IsKeyPressed(ebiten.KeyArrowDown) {
-		if !(g.PlayerY >= (screenHeight - 30)) {
+		if !(g.PlayerY >= (screenHeight - 50)) {
 			g.PlayerY += speed
 		}
 	}
@@ -78,6 +85,18 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	if g.DebugMode {
 		g.DebugView(screen)
 	}
+
+	msg := fmt.Sprintf("Points:%d", (g.pointsNumber / 60))
+
+	op := &text.DrawOptions{}
+	op.GeoM.Translate(230, 280)
+	op.ColorScale.ScaleWithColor(color.White)
+
+	text.Draw(screen, msg, &text.GoTextFace{
+		Source: fontFace,
+		Size:   15, //Text font size
+	}, op)
+
 }
 
 func StartGame() {
@@ -88,6 +107,8 @@ func StartGame() {
 		PlayerY:   screenHeight / 2,
 
 		BulletImg: BulletCostume(),
+
+		pointsNumber: 0,
 	}
 
 	ebiten.SetWindowSize(screenWidth*2, screenHeight*2) // Set window size

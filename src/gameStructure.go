@@ -12,4 +12,6 @@ type Game struct {
 
 	Bullets   []Bullet
 	BulletImg *ebiten.Image
+
+	pointsNumber int
 }
