@@ -54,7 +54,7 @@ func (g *Game) Update() error {
 		}
 	}
 
-	if ebiten.IsKeyPressed(ebiten.KeySpace) {
+	if inpututil.IsKeyJustPressed(ebiten.KeySpace) || inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
 		g.shoot()
 	}
 
