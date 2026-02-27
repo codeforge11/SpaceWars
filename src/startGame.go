@@ -71,21 +71,24 @@ func (g *Game) Draw(screen *ebiten.Image) {
 
 	screen.Fill(color.RGBA{27, 18, 18, 255}) //Window background
 
+	//Debugger
+	if g.DebugMode {
+		g.DebugView(screen)
+	}
+
+	//Player
 	if g.PlayerImg != nil { //Draw player
 		op := &ebiten.DrawImageOptions{}
 		op.GeoM.Translate(g.PlayerX, g.PlayerY)
 		screen.DrawImage(g.PlayerImg, op)
 	}
 
+	//Shooting
 	for i := range g.Bullets {
 		g.Bullets[i].Draw(screen, g.BulletImg)
 	}
 
-	//Debugger
-	if g.DebugMode {
-		g.DebugView(screen)
-	}
-
+	//Draw points number
 	msg := fmt.Sprintf("Points:%d", (g.pointsNumber / 60))
 
 	op := &text.DrawOptions{}
