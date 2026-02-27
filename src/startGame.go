@@ -61,6 +61,10 @@ func (g *Game) Update() error {
 	//Moving bullets to top
 	for i := range g.Bullets {
 		g.Bullets[i].BulletY -= 5
+
+		if g.Bullets[i].BulletY < 0 {
+			//remove
+		}
 	}
 
 	return nil
