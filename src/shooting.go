@@ -4,6 +4,7 @@ import "github.com/hajimehoshi/ebiten/v2"
 
 type Bullet struct {
 	BulletX, BulletY float64
+	activeState      bool
 }
 
 func (g *Game) shoot() {

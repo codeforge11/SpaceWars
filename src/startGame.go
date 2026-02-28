@@ -58,12 +58,13 @@ func (g *Game) Update() error {
 		g.shoot()
 	}
 
-	//Moving bullets to top
+	//Moving bullets to top (if its activeState)
 	for i := range g.Bullets {
-		g.Bullets[i].BulletY -= 5
-
 		if g.Bullets[i].BulletY < 0 {
-			//remove
+			g.Bullets[i].activeState = false
+		} else {
+			g.Bullets[i].activeState = true
+			g.Bullets[i].BulletY -= 5
 		}
 	}
 
@@ -88,9 +89,15 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	}
 
 	//Shooting
+	activeBullets := 0
 	for i := range g.Bullets {
-		g.Bullets[i].Draw(screen, g.BulletImg)
+		if g.Bullets[i].activeState {
+			g.Bullets[i].Draw(screen, g.BulletImg)
+			g.Bullets[activeBullets] = g.Bullets[i]
+			activeBullets++
+		}
 	}
+	g.Bullets = g.Bullets[:activeBullets]
 
 	//Draw points number
 	msg := fmt.Sprintf("Points:%d", (g.pointsNumber / 60))
@@ -110,7 +117,7 @@ func StartGame() {
 
 	Game := &Game{
 		PlayerImg: PlayerCostume(),
-		PlayerX:   screenWidth / 2, // Start posizion
+		PlayerX:   screenWidth / 2, // Start position
 		PlayerY:   screenHeight / 2,
 
 		BulletImg: BulletCostume(),
