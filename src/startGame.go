@@ -1,7 +1,6 @@
 package src
 
 import (
-	"fmt"
 	"image/color"
 	"log"
 
@@ -99,17 +98,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	}
 	g.Bullets = g.Bullets[:activeBullets]
 
-	//Draw points number
-	msg := fmt.Sprintf("Points:%d", (g.pointsNumber / 60))
-
-	op := &text.DrawOptions{}
-	op.GeoM.Translate(230, 280)
-	op.ColorScale.ScaleWithColor(color.White)
-
-	text.Draw(screen, msg, &text.GoTextFace{
-		Source: fontFace,
-		Size:   15, //Text font size
-	}, op)
+	g.drawPointsNumber(screen)
 
 }
 
