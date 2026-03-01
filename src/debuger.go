@@ -14,12 +14,14 @@ func (g *Game) DebugView(screen *ebiten.Image) {
 			"FPS: %.2f\n"+
 			"Player cords: X: %.2f, Y: %.2f \n"+
 			"Active bullets: %d\n"+
+			"Game level: %d\n"+
 			"Creator: codeforge11",
 		g.Count/60,
 		ebiten.ActualFPS(),
 		g.PlayerX,
 		g.PlayerY,
 		len(g.Bullets),
+		gameLevel,
 	)
 
 	ebitenutil.DebugPrint(screen, msg)

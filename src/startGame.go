@@ -15,55 +15,69 @@ const (
 )
 
 var (
-	fontFace *text.GoTextFaceSource
+	fontFace  *text.GoTextFaceSource
+	gameLevel int
 )
 
 func (g *Game) Update() error {
-	g.Count++
-	g.pointsNumber++
-
 	// Turn on/off debug mode
 	if ebiten.IsKeyPressed(ebiten.KeyControl) && inpututil.IsKeyJustPressed(ebiten.KeyF) {
 		g.DebugMode = !g.DebugMode
 	}
 
-	// Player movement
-	speed := 2.0 //Player speed
-
-	if ebiten.IsKeyPressed(ebiten.KeyA) || ebiten.IsKeyPressed(ebiten.KeyArrowLeft) {
-		if !(g.PlayerX < 0) {
-			g.PlayerX -= speed
+	switch gameLevel {
+	case 0:
+		{
+			if ebiten.IsKeyPressed(ebiten.KeySpace) {
+				gameLevel = 1
+			}
 		}
+	case 1:
+		{
 
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyD) || ebiten.IsKeyPressed(ebiten.KeyArrowRight) {
-		if !(g.PlayerX >= (screenWidth - 30)) {
-			g.PlayerX += speed
-		}
+			g.Count++
+			g.pointsNumber++
 
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyW) || ebiten.IsKeyPressed(ebiten.KeyArrowUp) {
-		if !(g.PlayerY <= 0) {
-			g.PlayerY -= speed
-		}
-	}
-	if ebiten.IsKeyPressed(ebiten.KeyS) || ebiten.IsKeyPressed(ebiten.KeyArrowDown) {
-		if !(g.PlayerY >= (screenHeight - 50)) {
-			g.PlayerY += speed
-		}
-	}
+			// Player movement
+			speed := 2.0 //Player speed
 
-	if inpututil.IsKeyJustPressed(ebiten.KeySpace) || inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
-		g.shoot()
-	}
+			if ebiten.IsKeyPressed(ebiten.KeyA) || ebiten.IsKeyPressed(ebiten.KeyArrowLeft) {
+				if !(g.PlayerX < 0) {
+					g.PlayerX -= speed
+				}
 
-	//Moving bullets to top (if its activeState)
-	for i := range g.Bullets {
-		if g.Bullets[i].BulletY < 0 {
-			g.Bullets[i].activeState = false
-		} else {
-			g.Bullets[i].activeState = true
-			g.Bullets[i].BulletY -= 5
+			}
+			if ebiten.IsKeyPressed(ebiten.KeyD) || ebiten.IsKeyPressed(ebiten.KeyArrowRight) {
+				if !(g.PlayerX >= (screenWidth - 30)) {
+					g.PlayerX += speed
+				}
+
+			}
+			if ebiten.IsKeyPressed(ebiten.KeyW) || ebiten.IsKeyPressed(ebiten.KeyArrowUp) {
+				if !(g.PlayerY <= 0) {
+					g.PlayerY -= speed
+				}
+			}
+			if ebiten.IsKeyPressed(ebiten.KeyS) || ebiten.IsKeyPressed(ebiten.KeyArrowDown) {
+				if !(g.PlayerY >= (screenHeight - 50)) {
+					g.PlayerY += speed
+				}
+			}
+
+			if inpututil.IsKeyJustPressed(ebiten.KeySpace) || inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) {
+				g.shoot()
+			}
+
+			//Moving bullets to top (if its activeState)
+			for i := range g.Bullets {
+				if g.Bullets[i].BulletY < 0 {
+					g.Bullets[i].activeState = false
+				} else {
+					g.Bullets[i].activeState = true
+					g.Bullets[i].BulletY -= 5
+				}
+			}
+
 		}
 	}
 
@@ -80,29 +94,39 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		g.DebugView(screen)
 	}
 
-	//Player
-	if g.PlayerImg != nil { //Draw player
-		op := &ebiten.DrawImageOptions{}
-		op.GeoM.Translate(g.PlayerX, g.PlayerY)
-		screen.DrawImage(g.PlayerImg, op)
-	}
+	switch gameLevel {
+	case 0:
+		{
+			g.drawMenu(screen)
+		}
+	case 1:
+		{
+			//Player
+			if g.PlayerImg != nil { //Draw player
+				op := &ebiten.DrawImageOptions{}
+				op.GeoM.Translate(g.PlayerX, g.PlayerY)
+				screen.DrawImage(g.PlayerImg, op)
+			}
 
-	//Shooting
-	activeBullets := 0
-	for i := range g.Bullets {
-		if g.Bullets[i].activeState {
-			g.Bullets[i].Draw(screen, g.BulletImg)
-			g.Bullets[activeBullets] = g.Bullets[i]
-			activeBullets++
+			//Shooting
+			activeBullets := 0
+			for i := range g.Bullets {
+				if g.Bullets[i].activeState {
+					g.Bullets[i].Draw(screen, g.BulletImg)
+					g.Bullets[activeBullets] = g.Bullets[i]
+					activeBullets++
+				}
+			}
+			g.Bullets = g.Bullets[:activeBullets]
+
+			g.drawPointsNumber(screen)
 		}
 	}
-	g.Bullets = g.Bullets[:activeBullets]
-
-	g.drawPointsNumber(screen)
-
 }
 
 func StartGame() {
+
+	gameLevel = 0
 
 	Game := &Game{
 		PlayerImg: PlayerCostume(),
