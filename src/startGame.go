@@ -99,6 +99,15 @@ func (g *Game) Update() error {
 			}
 
 		}
+	case 3, 4:
+		{
+			if ebiten.IsKeyPressed(ebiten.KeySpace) {
+				gameLevel = 1
+			}
+			if ebiten.IsKeyPressed(ebiten.KeyEscape) {
+				gameLevel = 0
+			}
+		}
 	}
 
 	return nil
@@ -152,6 +161,14 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			g.Bullets = g.Bullets[:activeBullets]
 
 			g.drawPointsNumber(screen)
+		}
+	case 3:
+		{
+			g.endGameWin(screen)
+		}
+	case 4:
+		{
+			g.endGameLose(screen)
 		}
 	}
 }
