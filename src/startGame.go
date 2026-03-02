@@ -69,7 +69,7 @@ func (g *Game) Update() error {
 				g.shoot()
 			}
 
-			if inpututil.IsKeyJustPressed(ebiten.KeyP) {
+			if len(g.Enemies) <= 7 {
 				g.createNewEnemy()
 			}
 
@@ -117,6 +117,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		}
 	case 1:
 		{
+
 			//Player
 			if g.PlayerImg != nil { //Draw player
 				op := &ebiten.DrawImageOptions{}
