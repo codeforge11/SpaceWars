@@ -6,6 +6,8 @@ type Game struct {
 	Count     int
 	DebugMode bool
 
+	GameImg *ebiten.Image
+
 	PlayerX   float64
 	PlayerY   float64
 	PlayerImg *ebiten.Image
@@ -15,5 +17,6 @@ type Game struct {
 
 	pointsNumber int
 
+	Enemies  []Enemy
 	EnemyImg *ebiten.Image
 }

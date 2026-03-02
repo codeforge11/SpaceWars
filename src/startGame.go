@@ -1,6 +1,7 @@
 package src
 
 import (
+	"image"
 	"image/color"
 	"log"
 
@@ -68,6 +69,10 @@ func (g *Game) Update() error {
 				g.shoot()
 			}
 
+			if inpututil.IsKeyJustPressed(ebiten.KeyP) {
+				g.createNewEnemy()
+			}
+
 			//Moving bullets to top (if its activeState)
 			for i := range g.Bullets {
 				if g.Bullets[i].BulletY < 0 {
@@ -76,6 +81,17 @@ func (g *Game) Update() error {
 					g.Bullets[i].activeState = true
 					g.Bullets[i].BulletY -= 5
 				}
+			}
+
+			//Moving enemies to bottom (if its activeState)
+			for i := range g.Enemies {
+				if g.Enemies[i].EnemyY > 250 {
+					g.Enemies[i].activeState = false
+				} else {
+					g.Enemies[i].activeState = true
+					g.Enemies[i].EnemyY += 1
+				}
+
 			}
 
 		}
@@ -107,6 +123,17 @@ func (g *Game) Draw(screen *ebiten.Image) {
 				op.GeoM.Translate(g.PlayerX, g.PlayerY)
 				screen.DrawImage(g.PlayerImg, op)
 			}
+
+			//Creating enemies
+			activeEnemies := 0
+			for i := range g.Enemies {
+				if g.Enemies[i].activeState {
+					g.Enemies[i].DrawEnemy(screen, g.EnemyImg)
+					g.Enemies[activeEnemies] = g.Enemies[i]
+					activeEnemies++
+				}
+			}
+			g.Enemies = g.Enemies[:activeEnemies]
 
 			//Shooting
 			activeBullets := 0
