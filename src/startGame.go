@@ -69,7 +69,7 @@ func (g *Game) Update() error {
 				g.shoot()
 			}
 
-			if len(g.Enemies) <= 7 {
+			if len(g.Enemies) < 7 {
 				g.createNewEnemy()
 			}
 
