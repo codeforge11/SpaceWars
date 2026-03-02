@@ -14,6 +14,7 @@ func (g *Game) DebugView(screen *ebiten.Image) {
 			"FPS: %.2f\n"+
 			"Player cords: X: %.2f, Y: %.2f \n"+
 			"Active bullets: %d\n"+
+			"Active enemies: %d\n"+
 			"Game level: %d\n"+
 			"Creator: codeforge11",
 		g.Count/60,
@@ -21,6 +22,7 @@ func (g *Game) DebugView(screen *ebiten.Image) {
 		g.PlayerX,
 		g.PlayerY,
 		len(g.Bullets),
+		len(g.Enemies),
 		gameLevel,
 	)
 
