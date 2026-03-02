@@ -12,6 +12,7 @@ var (
 
 	PlaneImage  = "plane.png"
 	BulletImage = "bullet.png"
+	EnemyImage  = "enemy.png"
 )
 
 func PlayerCostume() *ebiten.Image {
@@ -28,4 +29,12 @@ func BulletCostume() *ebiten.Image {
 		log.Fatal(err)
 	}
 	return bulletImg
+}
+
+func EnemyCostume() *ebiten.Image {
+	enemyImg, _, err := ebitenutil.NewImageFromFile(defaultImagesSources + EnemyImage)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return enemyImg
 }
