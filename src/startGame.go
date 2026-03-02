@@ -135,11 +135,15 @@ func StartGame() {
 
 		BulletImg: BulletCostume(),
 
+		EnemyImg: EnemyCostume(),
+		GameImg:  GameCostume(),
+
 		pointsNumber: 0,
 	}
 
 	ebiten.SetWindowSize(screenWidth*2, screenHeight*2) // Set window size
 	ebiten.SetWindowTitle("SpaceWars")                  // Title
+	ebiten.SetWindowIcon([]image.Image{Game.GameImg})
 
 	err := ebiten.RunGame(Game) //Start game
 	if err != nil {
