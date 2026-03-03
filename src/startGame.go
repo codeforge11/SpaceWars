@@ -69,6 +69,15 @@ func (g *Game) Update() error {
 				g.shoot()
 			}
 
+			if g.DebugMode {
+				if inpututil.IsKeyJustPressed(ebiten.KeyP) {
+					gameLevel = 0
+				}
+				if inpututil.IsKeyJustPressed(ebiten.KeyO) {
+					gameLevel = 1
+				}
+			}
+
 			if len(g.Enemies) < 7 {
 				g.createNewEnemy()
 			}
