@@ -180,12 +180,12 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	case 3:
 		{
 			g.endGameWin(screen)
-			g.Enemies = nil //Remove enemies
+			// g.Enemies = nil //Remove enemies
 		}
 	case 4:
 		{
 			g.endGameLose(screen)
-			g.Enemies = nil //Remove enemies
+			// g.Enemies = nil //Remove enemies
 		}
 	}
 }
