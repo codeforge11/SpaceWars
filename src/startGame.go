@@ -109,6 +109,18 @@ func (g *Game) Update() error {
 
 			}
 
+			for i := range g.Bullets {
+				for j := range g.Enemies {
+					if (((g.Bullets[i].BulletX) + 2) <= ((g.Enemies[j].EnemyX) + 2)) &&
+						((g.Bullets[i].BulletY) == (g.Enemies[j].EnemyY)) {
+						g.pointsNumber += 100
+
+						g.Enemies[j].activeState = false
+						g.Bullets[i].activeState = false
+					}
+				}
+			}
+
 			if g.pointsNumber == (100 * 60) {
 				gameLevel = 3
 			}
