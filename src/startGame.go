@@ -76,6 +76,12 @@ func (g *Game) Update() error {
 				if inpututil.IsKeyJustPressed(ebiten.KeyO) {
 					gameLevel = 1
 				}
+				if inpututil.IsKeyJustPressed(ebiten.KeyM) {
+					gameLevel = 4
+				}
+				if inpututil.IsKeyJustPressed(ebiten.KeyN) {
+					gameLevel = 3
+				}
 			}
 
 			if len(g.Enemies) < 7 {
