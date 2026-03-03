@@ -10,6 +10,7 @@ import (
 func (g *Game) endGameWin(screen *ebiten.Image) {
 	g.Bullets = nil
 	g.Enemies = nil
+	g.pointsNumber = 0
 
 	title := "YOU WIN"
 	miniText1 := "Click space to restart..."
@@ -47,6 +48,7 @@ func (g *Game) endGameWin(screen *ebiten.Image) {
 func (g *Game) endGameLose(screen *ebiten.Image) {
 	g.Bullets = nil
 	g.Enemies = nil
+	g.pointsNumber = 0
 
 	title := "YOU LOSE :("
 	miniText1 := "Click space to restart..."

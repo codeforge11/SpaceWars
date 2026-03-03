@@ -121,7 +121,7 @@ func (g *Game) Update() error {
 				}
 			}
 
-			if g.pointsNumber == (100 * 60) {
+			if g.pointsNumber == (6000) {
 				gameLevel = 3
 			}
 
