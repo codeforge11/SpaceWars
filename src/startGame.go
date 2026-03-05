@@ -37,7 +37,12 @@ func (g *Game) Update() error {
 		{
 
 			g.Count++
-			g.pointsNumber++
+
+			if g.pointsNumber >= 6000 {
+				gameLevel = 3
+			} else {
+				g.pointsNumber++
+			}
 
 			// Player movement
 			speed := 2.0 //Player speed
