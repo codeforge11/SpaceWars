@@ -134,11 +134,14 @@ func (g *Game) Update() error {
 
 			//Moving enemies to bottom (if its activeState)
 			for i := range g.Enemies {
-				if (g.Enemies[i].EnemyY > 250) || g.Enemies[i].isHit {
+				if g.Enemies[i].EnemyY > 250 {
+					g.Enemies[i].activeState = false
+					g.pointsNumber -= 100
+				} else if g.Enemies[i].isHit {
 					g.Enemies[i].activeState = false
 				} else {
 					g.Enemies[i].activeState = true
-					g.Enemies[i].EnemyY += 0.5
+					g.Enemies[i].EnemyY += 1
 				}
 
 			}
@@ -146,7 +149,7 @@ func (g *Game) Update() error {
 		}
 	case 3, 4:
 		{
-			if ebiten.IsKeyPressed(ebiten.KeyE) {
+			if ebiten.IsKeyPressed(ebiten.KeySpace) {
 				gameLevel = 1
 			}
 			if ebiten.IsKeyPressed(ebiten.KeyEscape) {
@@ -234,7 +237,7 @@ func StartGame() {
 		EnemyImg: EnemyCostume(),
 		GameImg:  GameCostume(),
 
-		pointsNumber: 0,
+		pointsNumber: 100, //Give start points
 	}
 
 	ebiten.SetWindowSize(screenWidth*2, screenHeight*2) // Set window size
