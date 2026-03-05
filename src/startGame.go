@@ -93,6 +93,19 @@ func (g *Game) Update() error {
 				g.createNewEnemy()
 			}
 
+			for i := range g.Bullets {
+				for j := range g.Enemies {
+					if (((g.Bullets[i].BulletX) + 2) <= ((g.Enemies[j].EnemyX) + 30)) &&
+						((g.Bullets[i].BulletY) == (g.Enemies[j].EnemyY)) {
+						//g.Enemies[j].activeState = false
+						g.Bullets[i].activeState = false
+						g.Enemies[i].isHit = true
+
+						g.pointsNumber += 100
+					}
+				}
+			}
+
 			//Moving bullets to top (if its activeState)
 			for i := range g.Bullets {
 				if g.Bullets[i].BulletY < 0 {
@@ -105,29 +118,13 @@ func (g *Game) Update() error {
 
 			//Moving enemies to bottom (if its activeState)
 			for i := range g.Enemies {
-				if g.Enemies[i].EnemyY > 250 {
+				if (g.Enemies[i].EnemyY > 250) || g.Enemies[i].isHit {
 					g.Enemies[i].activeState = false
 				} else {
 					g.Enemies[i].activeState = true
 					g.Enemies[i].EnemyY += 1
 				}
 
-			}
-
-			for i := range g.Bullets {
-				for j := range g.Enemies {
-					if (((g.Bullets[i].BulletX) + 2) <= ((g.Enemies[j].EnemyX) + 2)) &&
-						((g.Bullets[i].BulletY) == (g.Enemies[j].EnemyY)) {
-						g.pointsNumber += 100
-
-						g.Enemies[j].activeState = false
-						g.Bullets[i].activeState = false
-					}
-				}
-			}
-
-			if g.pointsNumber == (6000) {
-				gameLevel = 3
 			}
 
 		}
@@ -226,6 +223,7 @@ func StartGame() {
 
 	ebiten.SetWindowSize(screenWidth*2, screenHeight*2) // Set window size
 	ebiten.SetWindowTitle("SpaceWars")                  // Title
+
 	ebiten.SetWindowIcon([]image.Image{Game.GameImg})
 
 	err := ebiten.RunGame(Game) //Start game
