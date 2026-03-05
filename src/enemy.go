@@ -12,6 +12,11 @@ type Enemy struct {
 	isHit          bool
 }
 
+const (
+	enemyWidth  = 30.0
+	enemyHeight = 30.0
+)
+
 func (g *Game) createNewEnemy() {
 	newEnemy := Enemy{
 		EnemyX: rand.Float64() * screenWidth,

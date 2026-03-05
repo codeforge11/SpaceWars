@@ -94,14 +94,30 @@ func (g *Game) Update() error {
 			}
 
 			for i := range g.Bullets {
+				// Skip bullets which hit
+				if !g.Bullets[i].activeState {
+					continue
+				}
+
 				for j := range g.Enemies {
-					if (((g.Bullets[i].BulletX) + 2) <= ((g.Enemies[j].EnemyX) + 30)) &&
-						((g.Bullets[i].BulletY) == (g.Enemies[j].EnemyY)) {
-						//g.Enemies[j].activeState = false
+
+					if g.Enemies[j].isHit || !g.Enemies[j].activeState {
+						continue
+					}
+
+					bulletX := g.Bullets[i].BulletX
+					bulletY := g.Bullets[i].BulletY
+					enemyX := g.Enemies[j].EnemyX
+					enemyY := g.Enemies[j].EnemyY
+
+					if bulletX >= enemyX && bulletX <= enemyX+enemyWidth &&
+						bulletY >= enemyY && bulletY <= enemyY+enemyHeight {
+
 						g.Bullets[i].activeState = false
-						g.Enemies[i].isHit = true
+						g.Enemies[j].isHit = true
 
 						g.pointsNumber += 100
+						break
 					}
 				}
 			}
