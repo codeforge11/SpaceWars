@@ -138,7 +138,7 @@ func (g *Game) Update() error {
 					g.Enemies[i].activeState = false
 				} else {
 					g.Enemies[i].activeState = true
-					g.Enemies[i].EnemyY += 1
+					g.Enemies[i].EnemyY += 0.5
 				}
 
 			}
@@ -146,7 +146,7 @@ func (g *Game) Update() error {
 		}
 	case 3, 4:
 		{
-			if ebiten.IsKeyPressed(ebiten.KeySpace) {
+			if ebiten.IsKeyPressed(ebiten.KeyE) {
 				gameLevel = 1
 			}
 			if ebiten.IsKeyPressed(ebiten.KeyEscape) {

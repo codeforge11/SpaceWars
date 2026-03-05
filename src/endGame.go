@@ -24,7 +24,7 @@ func (g *Game) endGame(screen *ebiten.Image, endType bool) {
 		title = "YOU LOSE :("
 	}
 
-	miniText1 = "Click space to restart..."
+	miniText1 = "Click e to restart..."
 	miniText2 = "Click ESC to return to menu"
 
 	titleDrawOptions := &text.DrawOptions{}
