@@ -13,7 +13,7 @@ func (g *Game) drawPointsNumber(screen *ebiten.Image) {
 	msg := fmt.Sprintf("Points:%d", (g.pointsNumber / 60))
 
 	op := &text.DrawOptions{}
-	op.GeoM.Translate(230, 280)
+	op.GeoM.Translate(215, 280)
 	op.ColorScale.ScaleWithColor(color.White)
 
 	text.Draw(screen, msg, &text.GoTextFace{
