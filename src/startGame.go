@@ -149,7 +149,7 @@ func (g *Game) Update() error {
 		}
 	case 3, 4:
 		{
-			if ebiten.IsKeyPressed(ebiten.KeySpace) {
+			if ebiten.IsKeyPressed(ebiten.KeyE) {
 				gameLevel = 1
 			}
 			if ebiten.IsKeyPressed(ebiten.KeyEscape) {
