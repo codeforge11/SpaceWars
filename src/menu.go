@@ -1,6 +1,7 @@
 package src
 
 import (
+	"fmt"
 	"image/color"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -9,10 +10,11 @@ import (
 
 func (g *Game) drawMenu(screen *ebiten.Image) {
 	title := "SPACE WARS"
+	miText := fmt.Sprintf("CONTROL: WSAD / ARROWS  FIRE: SPACE")
 	miniText := "Click space to start..."
 
 	titleDrawOptions := &text.DrawOptions{}
-	titleDrawOptions.GeoM.Translate(100, 50)
+	titleDrawOptions.GeoM.Translate(100, 20)
 	titleDrawOptions.ColorScale.ScaleWithColor(color.White)
 
 	text.Draw(screen, title, &text.GoTextFace{
@@ -20,8 +22,17 @@ func (g *Game) drawMenu(screen *ebiten.Image) {
 		Size:   18, //Text font size
 	}, titleDrawOptions)
 
+	miTextDrawOptions := &text.DrawOptions{}
+	miTextDrawOptions.GeoM.Translate(15, 125)
+	miTextDrawOptions.ColorScale.ScaleWithColor(color.White)
+
+	text.Draw(screen, miText, &text.GoTextFace{
+		Source: fontFace,
+		Size:   14, //Text font size
+	}, miTextDrawOptions)
+
 	miniTextDrawOptions := &text.DrawOptions{}
-	miniTextDrawOptions.GeoM.Translate(100, 150)
+	miniTextDrawOptions.GeoM.Translate(90, 170)
 	miniTextDrawOptions.ColorScale.ScaleWithColor(color.White)
 
 	text.Draw(screen, miniText, &text.GoTextFace{
