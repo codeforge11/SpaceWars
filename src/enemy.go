@@ -19,7 +19,7 @@ const (
 
 func (g *Game) createNewEnemy() {
 	newEnemy := Enemy{
-		EnemyX: rand.Float64() * screenWidth,
+		EnemyX: rand.Float64() * (screenWidth - 30),
 		EnemyY: 0,
 		isHit:  false,
 	}
