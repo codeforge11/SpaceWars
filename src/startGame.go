@@ -209,6 +209,10 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			g.Bullets = g.Bullets[:activeBullets]
 
 			g.drawPointsNumber(screen)
+
+			if g.pointsNumber < (-100) {
+				gameLevel = 4
+			}
 		}
 	case 3:
 		{
