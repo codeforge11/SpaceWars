@@ -13,7 +13,7 @@ func (g *Game) drawMenu(screen *ebiten.Image) {
 	miniText := "Click space to start..."
 
 	titleDrawOptions := &text.DrawOptions{}
-	titleDrawOptions.GeoM.Translate(100, 20)
+	titleDrawOptions.GeoM.Translate(90, 20)
 	titleDrawOptions.ColorScale.ScaleWithColor(color.White)
 
 	text.Draw(screen, title, &text.GoTextFace{
