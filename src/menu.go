@@ -1,7 +1,6 @@
 package src
 
 import (
-	"fmt"
 	"image/color"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -10,7 +9,7 @@ import (
 
 func (g *Game) drawMenu(screen *ebiten.Image) {
 	title := "SPACE WARS"
-	miText := fmt.Sprintf("CONTROL: WSAD / ARROWS  FIRE: SPACE")
+	miText := "CONTROL: WSAD / ARROWS  FIRE: SPACE"
 	miniText := "Click space to start..."
 
 	titleDrawOptions := &text.DrawOptions{}
