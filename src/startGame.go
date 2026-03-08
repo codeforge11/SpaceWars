@@ -94,10 +94,10 @@ func (g *Game) Update() error {
 			}
 
 			for i := range g.Bullets {
-				// Skip bullets which hit
-				if !g.Bullets[i].activeState {
-					continue
-				}
+				// // Skip bullets which hit
+				// if !g.Bullets[i].activeState {
+				// 	continue
+				// }
 
 				for j := range g.Enemies {
 
@@ -113,7 +113,7 @@ func (g *Game) Update() error {
 					if bulletX >= enemyX && bulletX <= enemyX+enemyWidth &&
 						bulletY >= enemyY && bulletY <= enemyY+enemyHeight {
 
-						g.Bullets[i].activeState = false
+						g.Bullets[i].isHit = true
 						g.Enemies[j].isHit = true
 
 						g.pointsNumber += 100
@@ -124,7 +124,7 @@ func (g *Game) Update() error {
 
 			//Moving bullets to top (if its activeState)
 			for i := range g.Bullets {
-				if g.Bullets[i].BulletY < 0 {
+				if (g.Bullets[i].BulletY < 0) || g.Bullets[i].isHit {
 					g.Bullets[i].activeState = false
 				} else {
 					g.Bullets[i].activeState = true
