@@ -10,6 +10,7 @@ type Enemy struct {
 	EnemyX, EnemyY float64
 	activeState    bool
 	isHit          bool
+	EnemySpeed     float64
 }
 
 const (
@@ -19,9 +20,10 @@ const (
 
 func (g *Game) createNewEnemy() {
 	newEnemy := Enemy{
-		EnemyX: rand.Float64() * (screenWidth - 30),
-		EnemyY: 0,
-		isHit:  false,
+		EnemyX:     rand.Float64() * (screenWidth - 30),
+		EnemyY:     0,
+		isHit:      false,
+		EnemySpeed: rand.Float64() * (4 - 2),
 	}
 	g.Enemies = append(g.Enemies, newEnemy)
 }

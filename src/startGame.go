@@ -141,7 +141,7 @@ func (g *Game) Update() error {
 					g.Enemies[i].activeState = false
 				} else {
 					g.Enemies[i].activeState = true
-					g.Enemies[i].EnemyY += 1
+					g.Enemies[i].EnemyY += g.Enemies[i].EnemySpeed
 				}
 
 			}
