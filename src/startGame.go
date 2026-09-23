@@ -164,7 +164,7 @@ func (g *Game) Update() error {
 func (g *Game) Draw(screen *ebiten.Image) {
 	//Main game logic
 
-	screen.Fill(color.RGBA{27, 18, 18, 255}) //Window background
+	screen.Fill(color.Transparent) //Transparent window background
 
 	//Debugger
 	if g.DebugMode {
@@ -231,7 +231,7 @@ func StartGame() {
 
 	gameLevel = 0
 
-	Game := &Game{
+	game := &Game{
 		PlayerImg: PlayerCostume(),
 		PlayerX:   screenWidth / 2, // Start position
 		PlayerY:   screenHeight / 2,
@@ -247,10 +247,19 @@ func StartGame() {
 	ebiten.SetWindowSize(screenWidth*2, screenHeight*2) // Set window size
 	ebiten.SetWindowTitle("SpaceWars")                  // Title
 
-	ebiten.SetWindowIcon([]image.Image{Game.GameImg})
+	ebiten.SetWindowIcon([]image.Image{game.GameImg})
 
-	err := ebiten.RunGame(Game) //Start game
-	if err != nil {
+	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
+
+	// ebiten.SetTPS(300)
+	// ebiten.SetVsyncEnabled(true)
+
+	opts := &ebiten.RunGameOptions{
+		// ScreenTransparent: true, // Enables OS-level transparency
+
+	}
+
+	if err := ebiten.RunGameWithOptions(game, opts); err != nil {
 		log.Fatal(err)
 	}
 }
