@@ -164,7 +164,7 @@ func (g *Game) Update() error {
 func (g *Game) Draw(screen *ebiten.Image) {
 	//Main game logic
 
-	screen.Fill(color.Transparent) //Transparent window background
+	screen.Fill(color.Black)
 
 	//Debugger
 	if g.DebugMode {
